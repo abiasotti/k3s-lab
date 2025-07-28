@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: chronogallery
-        image: ghcr.io/abiasotti/chronogallery:latest
+        image: ghcr.io/abiasotti/chronogallery:0.1.0
         ports:
         - containerPort: 8000
         resources:
