@@ -7,8 +7,9 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: "web"
-    traefik.ingress.kubernetes.io/router.middlewares: "chronogallery-upload-timeout@kubernetescrd"
     traefik.ingress.kubernetes.io/request-timeout: "300"
+    traefik.ingress.kubernetes.io/request-buffering: "true"
+    traefik.ingress.kubernetes.io/response-buffering: "true"
 spec:
   rules:
   - host: chrono.biasotti.co
