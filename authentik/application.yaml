@@ -12,10 +12,10 @@ spec:
       helm:
         valueFiles:
           - $values/authentik/authentik_values.yaml
-    - repoURL: git@github.com:abiasotti/k3s-lab.git
+    - repoURL: https://github.com/abiasotti/k3s-lab
       targetRevision: master
       ref: values
-    - repoURL: git@github.com:abiasotti/k3s-lab.git
+    - repoURL: https://github.com/abiasotti/k3s-lab
       targetRevision: master
       path: authentik
       directory:
