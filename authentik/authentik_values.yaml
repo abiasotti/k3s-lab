@@ -1,0 +1,26 @@
+global:
+    # AUTHENTIK_SECRET_KEY and AUTHENTIK_POSTGRESQL__PASSWORD come from Vault
+    # via the authentik-secrets ExternalSecret
+    envFrom:
+        - secretRef:
+              name: authentik-secrets
+
+authentik:
+    # This sends anonymous usage-data, stack traces on errors and
+    # performance data to sentry.io, and is fully opt-in
+    error_reporting:
+        enabled: false
+
+server:
+    ingress:
+        # Specify kubernetes ingress controller class name
+        ingressClassName: traefik
+        enabled: true
+        hosts:
+            - authentik.biasotti.co
+
+postgresql:
+    enabled: true
+    auth:
+        # created by the authentik-postgresql ExternalSecret (keys: password, postgres-password)
+        existingSecret: authentik-postgresql
