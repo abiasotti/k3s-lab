@@ -1,4 +1,27 @@
 vault:
   server:
     dev:
-      enabled: true 
+      enabled: false
+    # Persistence lives on the NFS share mounted at /container_data on all nodes
+    dataStorage:
+      enabled: false
+    volumes:
+      - name: data
+        hostPath:
+          path: /container_data/vault
+          type: DirectoryOrCreate
+    volumeMounts:
+      - name: data
+        mountPath: /vault/data
+    standalone:
+      enabled: true
+      config: |
+        ui = true
+        listener "tcp" {
+          tls_disable     = 1
+          address         = "[::]:8200"
+          cluster_address = "[::]:8201"
+        }
+        storage "file" {
+          path = "/vault/data"
+        }
