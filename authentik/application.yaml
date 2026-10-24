@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: authentik
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://charts.goauthentik.io
+      chart: authentik
+      targetRevision: 2026.8.5
+      helm:
+        valueFiles:
+          - $values/authentik/authentik_values.yaml
+    - repoURL: https://github.com/abiasotti/k3s-lab
+      targetRevision: master
+      ref: values
+    - repoURL: https://github.com/abiasotti/k3s-lab
+      targetRevision: master
+      path: authentik
+      directory:
+        include: externalsecret.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: authentik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
